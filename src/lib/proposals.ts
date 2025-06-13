@@ -111,7 +111,7 @@ export function isProposedPreVoting(proposal: VotingEventProposeProposal) {
 
 export function isVoting(proposal: VotingEventProposeProposal) {
 	const sess = getSession();
-	if (window.location.href.indexOf('localhost') > -1) return true;
+	//if (window.location.href.indexOf('localhost') > -1) return true;
 
 	const currentHeight =
 		proposal.submissionContract.indexOf('008') > -1
