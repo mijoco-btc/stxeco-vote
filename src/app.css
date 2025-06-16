@@ -1,22 +1,3 @@
-@font-face {
-	font-family: 'Matter';
-	src:
-	local('Matter'),
-	url('/fonts/Matter-Regular.woff2') format('woff2');
-	font-weight: 400;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Matter Mono';
-	src:
-	local('Matter Mono'),
-	url('/fonts/MatterMono-Regular.woff2') format('woff2');
-	font-weight: 400;
-	font-display: swap;
-}
-
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';

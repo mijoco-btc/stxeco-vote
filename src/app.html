@@ -1,29 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-		<link rel="icon" href="%sveltekit.assets%/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
-
-		<!-- Facebook Meta Tags -->
-		<meta property="og:url" content="https://stx.eco">
-		<meta property="og:type" content="website">
-		<meta property="og:title" content="Stacks Improvement Proposals (SIPs)">
-		<meta property="og:description" content="STX ECO is the all-in-one voting platform where the Stacks community can weigh in on major protocol changes">
-		<meta property="og:image" content="/opengraph-image.png">
-
-		<!-- Twitter Meta Tags -->
-		<meta name="twitter:card" content="summary_large_image">
-		<meta property="twitter:domain" content="stx.eco">
-		<meta property="twitter:url" content="https://stx.eco">
-		<meta name="twitter:title" content="Stacks Improvement Proposals (SIPs)">
-		<meta name="twitter:description" content="STX ECO is the all-in-one voting platform where the Stacks community can weigh in on major protocol changes">
-		<meta name="twitter:image" content="/opengraph-image.png">
-
 	</head>
-	<body data-sveltekit-preload-data="hover">
+	<body data-sveltekit-preload-data="hover" style="margin: 0; background-color: #0a0a1a">
+		<div id="splash-screen" style="position: fixed; inset: 0; background: #0a0a1a; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999">
+			<img src="/splash.png" alt="BigMarket loading..." width="100" height="100" style="opacity: 0.8" />
+			<p style="color: #ccc; font-family: Inter, sans-serif; margin-top: 1rem">Loading BigMarket...</p>
+		</div>
+
 		<div style="display: contents">%sveltekit.body%</div>
+		<script>
+			// Once SvelteKit boots, remove splash
+			window.addEventListener('DOMContentLoaded', () => {
+				const splash = document.getElementById('splash-screen');
+				if (splash) splash.remove();
+			});
+		</script>
 	</body>
 </html>

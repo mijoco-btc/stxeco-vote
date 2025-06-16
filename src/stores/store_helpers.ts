@@ -1,18 +1,32 @@
 import { get } from 'svelte/store';
 import { configStore } from '$stores/stores_config';
 import type { Config } from '$lib/config';
-import { sessionStore } from './stores';
-import type { DaoStore, SessionStore } from '@mijoco/stx_helpers/dist/index';
-import { daoStore } from './stores_dao';
+import { isLocalhost, selectedCurrency, sessionStore, type BigMarketSessionStore } from './stores';
+import type { DaoConfig } from '$lib/config_dao';
+import { configDaoStore } from './stores_config_dao';
+
+export function getDaoConfig(): DaoConfig {
+	return get(configDaoStore);
+}
 
 export function getConfig(): Config {
-  return get(configStore);
+	return get(configStore);
 }
 
-export function getSession(): SessionStore {
-  return get(sessionStore);
+export function getIsLocalhost(): boolean {
+	return get(isLocalhost);
 }
 
-export function getDaoStore(): DaoStore {
-  return get(daoStore);
+export function getSession(): BigMarketSessionStore {
+	return get(sessionStore);
+}
+
+export type Currency = {
+	code: string;
+	name: string;
+	flag: string;
+	symbol: string;
+};
+export function getSelectedCurrency(): Currency {
+	return get(selectedCurrency);
 }

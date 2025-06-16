@@ -1,33 +1,17 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vitest/config';
-import { resolve } from "path";
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-	test: {
-		deps: {
-		  inline: [
-			"@stacks/connect",
-			"stacks_connect"
-		  ]
-		},
-		//environment: 'jsdom',
-		//globals: true,
-		watch: false,
-		//include: ['**/__tests__/*.{js,tsx,ts}'],
-		setupFiles: './tests/utils/setup.ts'
-	},
 	plugins: [sveltekit()],
 	build: {
-		minify: false,
 		rollupOptions: {
-			//input: {
-			//  main: resolve(__dirname, 'index.html'),
-			//},
-			plugins: [
-				// Enable rollup polyfills plugin
-				// used during production bundling
-				//rollupNodePolyFill()
-			]
+			output: {
+				entryFileNames: '[name].js',
+				chunkFileNames: '[name].js' // disables hash in output files
+			}
 		}
 	}
+	// test: {
+	// 	include: ['src/**/*.{test,spec}.{js,ts}', 'tests/**/*.{test,spec}.{js,ts}']
+	// }
 });

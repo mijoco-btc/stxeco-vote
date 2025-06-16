@@ -1,72 +1,46 @@
 import type { HeaderLink } from '@mijoco/stx_helpers/dist/index';
 
-export const daoVotingSupported = false;
-
 export const appDetails = {
-	name: 'Ecosystem DAO',
-	icon: window
-		? window.location.origin + '/img/stx_eco_logo_icon_white.png'
-		: '/img/stx_eco_logo_icon_white.png'
+	name: 'bigmarket-dao',
+	icon: '/img/stx_eco_logo_icon_white.png'
 };
+
+export function getNetworkFromUrl(url: URL): string {
+	const chain = url.searchParams.get('chain');
+	return chain && ['mainnet', 'testnet', 'devnet'].includes(chain) ? chain : 'mainnet';
+	// return 'devnet';
+}
+
 export interface Config {
 	VITE_PUBLIC_APP_NAME: string;
 	VITE_PUBLIC_APP_VERSION: string;
 	VITE_NETWORK: string;
-	VITE_DOA_DEPLOYER: string;
-	VITE_DAO_BASE_CONTRACTS: string;
-	VITE_DOA: string;
-	VITE_DOA_PROPOSAL: string;
-	VITE_DOA_SNAPSHOT_VOTING_EXTENSION: string;
-	VITE_DOA_PROPOSAL_VOTING_EXTENSION: string;
-	VITE_DOA_FUNDED_SUBMISSION_EXTENSION: string;
-	VITE_DOA_EMERGENCY_EXECUTE_EXTENSION: string;
-	VITE_SBTC_COORDINATOR: string;
-	VITE_SBTC_CONTRACT_ID: string;
-	VITE_POX_CONTRACT_ID: string;
+	VITE_POLL_PAYMENT_USTX: number;
+	VITE_BIGMARKET_API: string;
+	VITE_SUI_API: string;
 	VITE_BRIDGE_API: string;
 	VITE_STACKS_API: string;
-	VITE_MEMPOOL_API: string;
-	VITE_MEMPOOL: string;
-	VITE_STACKS_WS: string;
 	VITE_STACKS_EXPLORER: string;
-	VITE_EXTENSIONS: Array<string>;
+	VITE_MEMPOOL_API: string;
+	VITE_BITCOIN_WALLET: string;
+	VITE_CLARITY_BITCOIN: string;
 	VITE_HEADER_LINKS: Array<HeaderLink>;
 }
 
 export const config: { [key: string]: Config } = {
 	devnet: {
-		VITE_PUBLIC_APP_NAME: 'Stacks Ecosystem DAO Testnet',
+		VITE_PUBLIC_APP_NAME: 'BigMarket',
 		VITE_PUBLIC_APP_VERSION: '1.0.0',
 		VITE_NETWORK: 'devnet',
-		VITE_DOA_DEPLOYER: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-		VITE_DOA: 'bitcoin-dao',
-		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bitcoin-dao',
-		VITE_DOA_PROPOSAL: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp001-sip-021-test-01',
-		VITE_DOA_SNAPSHOT_VOTING_EXTENSION: 'bde007-snapshot-proposal-voting',
-		VITE_DOA_PROPOSAL_VOTING_EXTENSION: 'bde007-snapshot-proposal-voting',
-		VITE_DOA_FUNDED_SUBMISSION_EXTENSION: 'bde002-proposal-submission',
-		VITE_DOA_EMERGENCY_EXECUTE_EXTENSION: 'bde004-emergency-execute',
-		VITE_SBTC_COORDINATOR: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-		VITE_SBTC_CONTRACT_ID: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.asset-3',
-		VITE_POX_CONTRACT_ID: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.pox-4',
-		VITE_BRIDGE_API: 'http://localhost:3010/bridge-api',
+		VITE_BIGMARKET_API: 'http://localhost:3020/bigmarket-api',
+		VITE_SUI_API: 'http://localhost:9001',
+		VITE_BRIDGE_API: 'http://localhost:3020/bridge-api',
 		VITE_STACKS_API: 'http://localhost:3999',
-		VITE_STACKS_WS: 'ws://localhost:3999',
 		VITE_STACKS_EXPLORER: 'http://localhost:8000',
 		VITE_MEMPOOL_API: 'http://localhost:8001',
-		VITE_MEMPOOL: 'https://mempool.space',
-		VITE_EXTENSIONS: [
-			'bde000-governance-token',
-			'bde001-proposal-voting',
-			'bde002-threshold-proposal-submission',
-			'bde003-emergency-proposals',
-			'bde004-emergency-execute',
-			'bde005-dev-fund',
-			'bde006-treasury',
-			'bde007-snapshot-proposal-voting',
-			'bde008-funded-proposal-submission',
-			'bde009-governance-token-sale'
-		],
+		VITE_POLL_PAYMENT_USTX: 50000000,
+		VITE_BITCOIN_WALLET: 'bcrt1q4zymxl8934vvle2ppzw0j6tkwz3d7qw4f0esme',
+		VITE_CLARITY_BITCOIN: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.clarity-bitcoin-lib-v5',
 		VITE_HEADER_LINKS: [
 			{
 				name: '/voting',
@@ -76,69 +50,7 @@ export const config: { [key: string]: Config } = {
 				items: [
 					{
 						name: '/bdp001-sip-021-nakamoto',
-						href: '/dao/proposals/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp001-sip-021-nakamoto/results?method=1',
-						display: 'SIP 021 Nakamoto Upgrade',
-						target: '_self'
-					}
-				]
-			},
-			{
-				name: '/admin',
-				href: '/admin',
-				display: 'Admin',
-				target: '_self',
-				items: [
-					{ name: '/extensions', href: '/dao/extensions', display: 'Extensions', target: '_self' }
-				]
-			},
-			{ name: '/tools', href: '/dao/tools', display: 'PoX Insights', target: '_self' },
-			{ name: '/sip', href: '/sip', display: 'Upcoming SIPs', target: '_self' }
-		]
-	},
-	testnet: {
-		VITE_PUBLIC_APP_NAME: 'Stacks Ecosystem DAO',
-		VITE_PUBLIC_APP_VERSION: '1.0.0',
-		VITE_NETWORK: 'mainnet',
-		VITE_DOA_DEPLOYER: 'SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z',
-		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bitcoin-dao',
-		VITE_DOA: 'bitcoin-dao',
-		VITE_DOA_PROPOSAL: 'SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.bdp001-sip-021-nakamoto',
-		VITE_DOA_SNAPSHOT_VOTING_EXTENSION: 'bde007-snapshot-proposal-voting',
-		VITE_DOA_PROPOSAL_VOTING_EXTENSION: 'bde007-snapshot-proposal-voting',
-		VITE_DOA_FUNDED_SUBMISSION_EXTENSION: 'bde008-flexible-funded-submission',
-		VITE_DOA_EMERGENCY_EXECUTE_EXTENSION: 'bde004-emergency-execute',
-		VITE_SBTC_COORDINATOR: 'ST3SPZXMPYVNHH3KF0RXNXVX1WVJ3QM1ZMD5FKWDN',
-		VITE_SBTC_CONTRACT_ID: 'ST3SPZXMPYVNHH3KF0RXNXVX1WVJ3QM1ZMD5FKWDN.asset',
-		VITE_POX_CONTRACT_ID: 'ST000000000000000000002AMW42H.pox-4',
-		VITE_BRIDGE_API: 'https://api.stx.eco/bridge-api',
-		//VITE_BRIDGE_API: 'http://localhost:3010/bridge-api',
-		VITE_STACKS_API: 'https://api.hiro.so',
-		VITE_STACKS_WS: 'ws://spinoza.brightblock.org',
-		VITE_STACKS_EXPLORER: 'https://explorer.hiro.so',
-		VITE_MEMPOOL_API: 'https://mempool.space/api',
-		VITE_MEMPOOL: 'https://mempool.space',
-		VITE_EXTENSIONS: [
-			'bde000-governance-token',
-			'bde001-proposal-voting',
-			'bde002-threshold-proposal-submission',
-			'bde003-emergency-proposals',
-			'bde004-emergency-execute',
-			'bde005-dev-fund',
-			'bde006-treasury',
-			'bde007-snapshot-proposal-voting',
-			'bde008-funded-proposal-submission',
-			'bde009-governance-token-sale'
-		],
-		VITE_HEADER_LINKS: [
-			{
-				name: '/voting',
-				href: 'https://stx.eco',
-				display: 'Past Votes',
-				target: '_self',
-				items: [
-					{
-						name: '/bdp001-sip-021-nakamoto',
-						href: 'https://stx.eco/dao/proposals/SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.bdp001-sip-021-nakamoto/results?method=1',
+						href: '/proposal/results-v1/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp001-sip-021-nakamoto?method=1',
 						display: 'SIP 021 Nakamoto Upgrade',
 						target: '_self'
 					}
@@ -155,7 +67,49 @@ export const config: { [key: string]: Config } = {
 					{ name: '/dao-launcher', href: '/dao-launcher', display: 'DAO Launcher', target: '_self' }
 				]
 			},
-			{ name: '/tools', href: '/dao/tools', display: 'PoX Insights', target: '_self' },
+			{ name: '/sip', href: '/sip', display: 'Upcoming SIPs', target: '_self' }
+		]
+	},
+	testnet: {
+		VITE_PUBLIC_APP_NAME: 'BigMarket',
+		VITE_PUBLIC_APP_VERSION: '1.0.0',
+		VITE_NETWORK: 'testnet',
+		VITE_BIGMARKET_API: 'https://api.testnet.bigmarket.ai/bigmarket-api',
+		//VITE_BIGMARKET_API: 'http://localhost:3020/bigmarket-api',
+		VITE_STACKS_API: 'https://api.testnet.hiro.so',
+		VITE_STACKS_EXPLORER: 'https://explorer.hiro.so',
+		VITE_BRIDGE_API: 'https://api.stx.eco/bridge-api',
+		VITE_SUI_API: 'http://localhost:9001',
+		VITE_MEMPOOL_API: 'https://beta.sbtc-mempool.tech/api/proxy', //0bbc856394ffdab7e69e0b2b8ddb1fa7e901974cd89b90a64349b48b643c7e9c
+		VITE_POLL_PAYMENT_USTX: 50000000,
+		VITE_BITCOIN_WALLET: 'bcrt1q4zymxl8934vvle2ppzw0j6tkwz3d7qw4f0esme',
+		VITE_CLARITY_BITCOIN: 'ST3FM52ANQES92X27AP9ZV9Z676MHP7QP2J79RTH9.clarity-bitcoin-lib-v5',
+		VITE_HEADER_LINKS: [
+			{
+				name: '/voting',
+				href: 'https://stx.eco',
+				display: 'Past Votes',
+				target: '_self',
+				items: [
+					{
+						name: '/bdp001-sip-021-nakamoto',
+						href: 'https://stx.eco/proposal/results-v1/SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.bdp001-sip-021-nakamoto?method=1',
+						display: 'SIP 021 Nakamoto Upgrade',
+						target: '_self'
+					}
+				]
+			},
+			{
+				name: '/admin',
+				href: '/admin',
+				display: 'Admin',
+				target: '_self',
+				items: [
+					{ name: '/proposals', href: '/dao/proposals', display: 'Proposals', target: '_self' },
+					{ name: '/extensions', href: '/dao/extensions', display: 'Extensions', target: '_self' },
+					{ name: '/dao-launcher', href: '/dao-launcher', display: 'DAO Launcher', target: '_self' }
+				]
+			},
 			{ name: '/sip', href: '/sip', display: 'Upcoming Votes', target: '_self' },
 			{ name: '/insights', href: 'https://stx.eco/insights', display: 'Insights', target: '_self' },
 			{ name: '/dao-launcher', href: 'https://stx.eco/launcher', display: 'DAO', target: '_self' },
@@ -168,41 +122,18 @@ export const config: { [key: string]: Config } = {
 		]
 	},
 	mainnet: {
-		VITE_PUBLIC_APP_NAME: 'Stacks Ecosystem DAO',
+		VITE_PUBLIC_APP_NAME: 'BigMarket',
 		VITE_PUBLIC_APP_VERSION: '1.0.0',
 		VITE_NETWORK: 'mainnet',
-		VITE_DOA_DEPLOYER: 'SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z',
-		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bitcoin-dao',
-		VITE_DOA: 'bitcoin-dao',
-		VITE_DOA_PROPOSAL: 'SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.bdp001-sip-021-nakamoto',
-		VITE_DOA_SNAPSHOT_VOTING_EXTENSION: 'bde007-snapshot-proposal-voting',
-		VITE_DOA_PROPOSAL_VOTING_EXTENSION: 'bde007-snapshot-proposal-voting',
-		VITE_DOA_FUNDED_SUBMISSION_EXTENSION: 'bde008-flexible-funded-submission',
-		VITE_DOA_EMERGENCY_EXECUTE_EXTENSION: 'bde004-emergency-execute',
-		VITE_SBTC_COORDINATOR: 'ST3SPZXMPYVNHH3KF0RXNXVX1WVJ3QM1ZMD5FKWDN',
-		VITE_SBTC_CONTRACT_ID: 'ST3SPZXMPYVNHH3KF0RXNXVX1WVJ3QM1ZMD5FKWDN.asset',
-		VITE_POX_CONTRACT_ID: 'SP000000000000000000002Q6VF78.pox-4',
-
-		VITE_BRIDGE_API: 'https://api.stx.eco/bridge-api',
-		//VITE_BRIDGE_API: 'http://localhost:3010/bridge-api',
-
+		VITE_BIGMARKET_API: 'https://api.bigmarket.ai/bigmarket-api',
 		VITE_STACKS_API: 'https://api.hiro.so',
-		VITE_STACKS_WS: 'ws://spinoza.brightblock.org',
 		VITE_STACKS_EXPLORER: 'https://explorer.hiro.so',
+		VITE_BRIDGE_API: 'https://api.stx.eco/bridge-api',
+		VITE_SUI_API: 'http://localhost:9001',
 		VITE_MEMPOOL_API: 'https://mempool.space/api',
-		VITE_MEMPOOL: 'https://mempool.space',
-		VITE_EXTENSIONS: [
-			'bde000-governance-token',
-			'bde001-proposal-voting',
-			'bde002-threshold-proposal-submission',
-			'bde003-emergency-proposals',
-			'bde004-emergency-execute',
-			'bde005-dev-fund',
-			'bde006-treasury',
-			'bde007-snapshot-proposal-voting',
-			'bde008-funded-proposal-submission',
-			'bde009-governance-token-sale'
-		],
+		VITE_POLL_PAYMENT_USTX: 50000000,
+		VITE_BITCOIN_WALLET: 'bcrt1q4zymxl8934vvle2ppzw0j6tkwz3d7qw4f0esme',
+		VITE_CLARITY_BITCOIN: 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.clarity-bitcoin-lib-v5',
 		VITE_HEADER_LINKS: [
 			{
 				name: '/voting',
@@ -212,7 +143,7 @@ export const config: { [key: string]: Config } = {
 				items: [
 					{
 						name: '/bdp001-sip-021-nakamoto',
-						href: 'https://stx.eco/dao/proposals/SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.bdp001-sip-021-nakamoto/results?method=1',
+						href: 'https://stx.eco/proposal/results-v1/SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.bdp001-sip-021-nakamoto?method=1',
 						display: 'SIP 021 Nakamoto Upgrade',
 						target: '_self'
 					}
@@ -228,16 +159,6 @@ export const config: { [key: string]: Config } = {
 					{ name: '/extensions', href: '/dao/extensions', display: 'Extensions', target: '_self' },
 					{ name: '/dao-launcher', href: '/dao-launcher', display: 'DAO Launcher', target: '_self' }
 				]
-			},
-			{ name: '/tools', href: '/dao/tools', display: 'PoX Insights', target: '_self' },
-			{ name: '/sip', href: '/sip', display: 'Upcoming Votes', target: '_self' },
-			{ name: '/insights', href: 'https://stx.eco/insights', display: 'Insights', target: '_self' },
-			{ name: '/dao-launcher', href: 'https://stx.eco/launcher', display: 'DAO', target: '_self' },
-			{
-				name: '/shop-front',
-				href: 'https://stx.eco/shop-front',
-				display: 'Shop Front',
-				target: '_self'
 			}
 		]
 	}
