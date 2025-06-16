@@ -88,9 +88,7 @@ export const config: { [key: string]: Config } = {
 				display: 'Admin',
 				target: '_self',
 				items: [
-					{ name: '/proposals', href: '/dao/proposals', display: 'Proposals', target: '_self' },
-					{ name: '/extensions', href: '/dao/extensions', display: 'Extensions', target: '_self' },
-					{ name: '/dao-launcher', href: '/dao-launcher', display: 'DAO Launcher', target: '_self' }
+					{ name: '/extensions', href: '/dao/extensions', display: 'Extensions', target: '_self' }
 				]
 			},
 			{ name: '/tools', href: '/dao/tools', display: 'PoX Insights', target: '_self' },
