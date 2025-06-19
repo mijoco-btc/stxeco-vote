@@ -7,7 +7,7 @@ export const appDetails = {
 
 export function getNetworkFromUrl(url: URL): string {
 	const chain = url.searchParams.get('chain');
-	return chain && ['mainnet', 'testnet', 'devnet'].includes(chain) ? chain : 'devnet';
+	return chain && ['mainnet', 'testnet', 'devnet'].includes(chain) ? chain : 'mainnet';
 	// return 'devnet';
 }
 
@@ -156,12 +156,12 @@ export const config: { [key: string]: Config } = {
 				display: 'Admin',
 				target: '_self',
 				items: [
+					{ name: '/tools', href: '/dao/tools', display: 'pox cycles', target: '_self' },
 					{ name: '/proposals', href: '/dao/proposals', display: 'Proposals', target: '_self' },
 					{ name: '/extensions', href: '/dao/extensions', display: 'Extensions', target: '_self' },
 					{ name: '/construct', href: '/dao/construct', display: 'Construct DAO', target: '_self' }
 				]
-			},
-			{ name: '/tools', href: '/dao/tools', display: 'pox cycles', target: '_self' }
+			}
 		]
 	}
 };
