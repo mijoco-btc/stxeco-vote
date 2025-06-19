@@ -11,7 +11,7 @@
 	let currentBurnHeight: number = $sessionStore.stacksInfo.burn_block_height;
 
 	const getLink = () => {
-		return '/dao/proposals/' + prop.tag + '/tentative';
+		return '/proposal/' + prop.tag + '/tentative';
 	};
 </script>
 

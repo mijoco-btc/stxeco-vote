@@ -4,6 +4,7 @@
 	import VotingPower from '../dao-voting/VotingPower.svelte';
 	import { explorerTxUrl, isLoggedIn, loginStacksFromHeader } from '$lib/stacks/stacks-connect';
 
+	export let switchVotingMethod: any;
 	export let proposal: VotingEventProposeProposal;
 	export let lockedBalanceAtHeight: number;
 	export let totalBalanceAtHeight: number;
@@ -22,9 +23,9 @@
 		justVoted = true;
 	};
 
-	const toggleMethod = (method: number) => {
-		//dispatch('toggle_voting_method', { method });
-	};
+	// const toggleMethod = (method: number) => {
+	// 	//dispatch('toggle_voting_method', { method });
+	// };
 </script>
 
 <div class="my-8 flex w-full flex-col">
@@ -44,7 +45,7 @@
 				</div>
 			</div>
 		{:else}
-			<div class="">
+			<div class="text-black">
 				<div class="mb-4">
 					<h2 class="mb-3 text-2xl text-[#131416]">Stacks Voting</h2>
 				</div>
@@ -60,7 +61,7 @@
 								class="underline hover:text-blue-500"
 								href="/"
 								on:click|preventDefault={() => {
-									toggleMethod(1);
+									switchVotingMethod(1);
 								}}>Prefer to vote with a bitcoin transaction ?</a
 							>
 						</p>

@@ -2,8 +2,7 @@
 	import { onMount } from 'svelte';
 	import Invoice from './Invoice.svelte';
 	import { sessionStore } from '$stores/stores';
-	import { openSTXTransfer } from '@stacks/connect';
-	import { getStacksNetwork } from '@mijoco/stx_helpers/dist/stacks-node';
+	import { request } from '@stacks/connect';
 	import { getConfig } from '$stores/store_helpers';
 	import type { VotingEventProposeProposal } from '@mijoco/stx_helpers';
 	import { getAddressId, isLoggedIn } from '$lib/stacks/stacks-connect';
@@ -29,21 +28,29 @@
 			errorMessage = 'Please connect your wallet to vote';
 			return;
 		}
-		await openSTXTransfer({
-			amount: '1',
-			network: getStacksNetwork(getConfig().VITE_NETWORK),
-			recipient: vfor ? stackerData.stacksAddressYes : stackerData.stacksAddressNo,
-			onFinish: (data) => {
-				txId = data.txId;
-				console.log('finished contract call!', data);
-				localStorage.setItem('VOTED_FLAG' + getAddressId(), JSON.stringify(proposal.proposal));
-				localStorage.setItem('VOTED_TXID_2' + getAddressId(), txId);
-				onVotingEvent({ txId, event: 'pool' });
-			},
-			onCancel: () => {
-				console.log('popup closed!');
-			}
+		const response = await request('stx_transferStx', {
+			amount: '1', // amount in micro-STX (1 STX = 1,000,000 micro-STX)
+			recipient: vfor ? stackerData.stacksAddressYes : stackerData.stacksAddressNo, // recipient address
+			network: 'mainnet' // optional, defaults to mainnet
+			// memo: 'Optional memo' // optional memo field
 		});
+		console.log('castVote response: ', response);
+
+		// await openSTXTransfer({
+		// 	amount: '1',
+		// 	network: getStacksNetwork(getConfig().VITE_NETWORK),
+		// 	recipient: vfor ? stackerData.stacksAddressYes : stackerData.stacksAddressNo,
+		// 	onFinish: (data) => {
+		// 		txId = data.txId;
+		// 		console.log('finished contract call!', data);
+		// 		localStorage.setItem('VOTED_FLAG' + getAddressId(), JSON.stringify(proposal.proposal));
+		// 		localStorage.setItem('VOTED_TXID_2' + getAddressId(), txId);
+		// 		onVotingEvent({ txId, event: 'pool' });
+		// 	},
+		// 	onCancel: () => {
+		// 		console.log('popup closed!');
+		// 	}
+		// });
 	};
 
 	onMount(async () => {

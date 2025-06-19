@@ -5,6 +5,7 @@
 	import { fmtMicroToStx } from '$lib/utils';
 	import { makeFlash } from '@mijoco/stx_helpers/dist/index';
 	import LinkToExplorer from '$lib/components/ui/LinkToExplorer.svelte';
+	import { explorerAddressUrl } from '$lib/stacks/stacks-connect';
 
 	export let address: string;
 	export let voteFor = false;
@@ -109,8 +110,8 @@
 				</div>
 			{/if}
 		</div>
-		<div class="h-[144px] overflow-hidden rounded-lg border border-sand-300">
-			<QrCode value={paymentUri()} size={144} color={'#000'} background={'#fff'} />
+		<div class="flex h-[200px] justify-center overflow-hidden rounded-lg border border-sand-300 text-center">
+			<QrCode value={paymentUri()} size={300} color={'#000'} background={'#fff'} />
 		</div>
 	</div>
 
@@ -128,26 +129,3 @@
 		<div class={showCopy ? 'visible text-sm' : 'invisible text-sm'}>Copied to clipboard</div>
 	</div>
 </div>
-
-<!--
-<div class="text-white leading-none mt-2 px-1 py-1">
-  <div class="block">Vote {(voteFor) ? 'YES' : 'NO'} by sending a tiny amount of STX here.</div>
-</div>
-<div class={getOuterClasses()}>
-  <div class="h-[144px] max:w-1/2 rounded-lg overflow-hidden mr-4 border border-gray-600">
-    <QrCode value={paymentUri()} size={144} color={'#000'} background={'#fff'} />
-  </div>
-  <div class="w-1/2 flex-1 flex flex-col justify-between">
-    <div class="flex items-center justify-between text-white pl-3 pr-2 py-2 gap-x-1 rounded-md border border-gray-800 bg-gray-1000/75">
-      <div id={(voteFor) ? 'address-field-yes' : 'address-field-no'} class="grow text-1xl p-1 break-words w-full">{getAddress(false)}</div>
-    </div>
-    <div class="flex justify-end gap-1 gap-x-1 mt-1">
-      <div class={(showCopy) ? 'block visible me-4' : 'block invisible me-4'}>copied bitcoin {(voteFor) ? 'vote yes' : 'vote no'} address</div>
-      <LinkToExplorer class="h-8 w-8 bg-black text-white rounded-md flex items-center justify-center border border-transparent hover:border-gray-900 transition duration-200" target={explorerAddressUrl(getAddress(true))} />
-      <button id="copy-address" type="button" on:click={() => copy()} class="h-8 w-8 bg-black text-white rounded-md flex items-center justify-center border border-transparent hover:border-gray-900 transition duration-200">
-        <Icon src="{ClipboardDocument}" class="h-5 w-5 text-white" aria-hidden="true" />
-      </button>
-    </div>
-  </div>
-</div>
--->

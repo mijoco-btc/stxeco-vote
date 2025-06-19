@@ -77,7 +77,7 @@
 			<div class="my-8 flex w-full flex-col">
 				<div class="relative overflow-hidden rounded-2xl bg-[#F4F3F0] px-10 py-10 md:grid md:auto-cols-auto md:grid-flow-col md:gap-12">
 					<div class="flex flex-col items-stretch justify-items-stretch">
-						<div>
+						<div class="text-gray-900">
 							{#if !isVoting(proposal)}
 								<div class="mb-3 max-w-md">
 									<h2 class="mb-3 text-2xl text-[#131416]">Voting over</h2>

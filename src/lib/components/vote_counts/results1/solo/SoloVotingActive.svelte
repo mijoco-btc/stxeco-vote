@@ -8,9 +8,10 @@
 	import { isLeather, isLoggedIn } from '$lib/stacks/stacks-connect';
 	import Banner from '$lib/components/ui/Banner.svelte';
 	import NakamotoResultsBackground from '$lib/components/ui/NakamotoResultsBackground.svelte';
+	import { request } from '@stacks/connect';
 
+	export let switchVotingMethod: any;
 	export let proposal: VotingEventProposeProposal;
-	export let onSwitchVotingMethod;
 	let showOnPanel = false;
 
 	const toggleVoting = () => {
@@ -19,9 +20,9 @@
 		}
 	};
 
-	const toggleMethod = (method: number) => {
-		//dispatch('toggle_voting_method', { method });
-	};
+	// const toggleMethod = (method: number) => {
+	// 	dispatch('toggle_voting_method', { method });
+	// };
 
 	const addresses = proposal.stackerData!;
 
@@ -30,11 +31,20 @@
 			errorMessage = 'Please connect your wallet to vote';
 			return;
 		}
-		if (isLeather()) {
-			await castVoteLeather(vfor);
-		} else {
-			await castVoteXverse(vfor);
-		}
+		const response = await request('sendTransfer', {
+			recipients: [
+				{
+					address: vfor ? addresses?.bitcoinAddressYes : addresses?.bitcoinAddressNo, // recipient address
+					amount: '6000' // amount in sats
+				}
+			]
+		});
+		console.log('castVote response: ', response);
+		// if (isLeather()) {
+		// 	await castVoteLeather(vfor);
+		// } else {
+		// 	await castVoteXverse(vfor);
+		// }
 	};
 
 	const castVoteLeather = async (vfor: boolean) => {
@@ -45,7 +55,7 @@
 				network: getConfig().VITE_NETWORK
 			})
 			.then((resp: any) => {
-				onSwitchVotingMethod({ txId: resp, event: 'pool' });
+				switchVotingMethod({ txId: resp, event: 'pool' });
 				console.log({ sucesss: resp });
 			})
 			.catch((error: any) => {
@@ -91,7 +101,7 @@
 
 <div class="my-8 flex w-full flex-col">
 	<div class="relative overflow-hidden rounded-2xl bg-[#F4F3F0] px-10 py-10 md:grid md:auto-cols-auto md:grid-flow-col md:gap-12">
-		<div class="">
+		<div class="text-black">
 			<div class="mb-4">
 				<h2 class="mb-3 text-2xl text-[#131416]">Bitcoin Voting (Solo Stackers Only!)</h2>
 			</div>
@@ -108,7 +118,7 @@
 							class="underline hover:text-blue-500"
 							href="/"
 							on:click|preventDefault={() => {
-								toggleMethod(2);
+								switchVotingMethod(2);
 							}}>Prefer to vote with a stacks transaction ?</a
 						>
 					</p>

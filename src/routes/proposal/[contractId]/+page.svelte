@@ -26,8 +26,8 @@
 	let balanceAtHeight: number = 0;
 	let inited = false;
 
-	const switchVotingMethod = (e: any) => {
-		method = e.detail.method;
+	const switchVotingMethod = (newMethod: number) => {
+		method = newMethod;
 	};
 
 	const conclude = async () => {
@@ -73,9 +73,9 @@
 
 		{#if isVoting(proposal)}
 			{#if method === 1}
-				<SoloVotingActive {proposal} onSwitchVotingMethod={switchVotingMethod} />
+				<SoloVotingActive {proposal} {switchVotingMethod} />
 			{:else if method === 2}
-				<PoolVotingActive {proposal} {totalBalanceAtHeight} {lockedBalanceAtHeight} on:toggle_voting_method={switchVotingMethod} />
+				<PoolVotingActive {proposal} {totalBalanceAtHeight} {lockedBalanceAtHeight} {switchVotingMethod} />
 			{:else if method === 3}
 				{#if $sessionStore.stacksInfo?.burn_block_height >= proposal.proposalData.burnStartHeight}
 					<DaoVotingActive {proposal} adjustBal={balanceAtHeight} />

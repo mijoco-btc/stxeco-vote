@@ -5,6 +5,7 @@
 	import { fmtSatoshiToBitcoin } from '$lib/utils';
 	import { makeFlash } from '@mijoco/stx_helpers/dist/index';
 	import LinkToExplorer from '$lib/components/ui/LinkToExplorer.svelte';
+	import { explorerBtcAddressUrl } from '$lib/stacks/stacks-connect';
 
 	export let address: string;
 	export let voteFor = false;
@@ -103,8 +104,8 @@
 				</div>
 			{/if}
 		</div>
-		<div class="h-[144px] overflow-hidden rounded-lg border border-sand-300">
-			<QrCode value={paymentUri()} size={144} color={'#000'} background={'#fff'} />
+		<div class="overflow-hidden rounded-lg border border-sand-300">
+			<QrCode value={paymentUri()} size={200} color={'#000'} background={'#fff'} />
 		</div>
 	</div>
 

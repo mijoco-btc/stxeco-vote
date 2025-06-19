@@ -23,8 +23,8 @@ export interface DaoConfig {
 export const config_dao: { [key: string]: DaoConfig } = {
 	devnet: {
 		VITE_DOA_DEPLOYER: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
-		VITE_DOA: 'bigmarket-dao',
-		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bigmarket-dao',
+		VITE_DOA: 'bitcoin-dao',
+		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bitcoin-dao',
 		VITE_DOA_PROPOSAL: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp001-sip-021-test-01',
 		VITE_DOA_PROPOSAL_VOTING_EXTENSION: 'bme007-snapshot-proposal-voting',
 		VITE_DOA_FUNDED_SUBMISSION_EXTENSION: 'bme002-proposal-submission',
@@ -44,8 +44,8 @@ export const config_dao: { [key: string]: DaoConfig } = {
 	},
 	testnet: {
 		VITE_DOA_DEPLOYER: 'ST3FM52ANQES92X27AP9ZV9Z676MHP7QP2J79RTH9', //'ST167Z6WFHMV0FZKFCRNWZ33WTB0DFBCW9M1FW3AY',
-		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bigmarket-dao',
-		VITE_DOA: 'bigmarket-dao',
+		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bitcoin-dao',
+		VITE_DOA: 'bitcoin-dao',
 		VITE_DOA_PROPOSAL: 'ST3FM52ANQES92X27AP9ZV9Z676MHP7QP2J79RTH9.bdp001-sip-021-nakamoto', // 'ST167Z6WFHMV0FZKFCRNWZ33WTB0DFBCW9M1FW3AY.bdp001-sip-021-nakamoto',
 		VITE_DOA_PROPOSAL_VOTING_EXTENSION: 'bme007-snapshot-proposal-voting',
 		VITE_DOA_FUNDED_SUBMISSION_EXTENSION: 'bme008-flexible-funded-submission',
@@ -65,8 +65,8 @@ export const config_dao: { [key: string]: DaoConfig } = {
 	},
 	mainnet: {
 		VITE_DOA_DEPLOYER: 'SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z',
-		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bigmarket-dao',
-		VITE_DOA: 'bigmarket-dao',
+		VITE_DAO_BASE_CONTRACTS: 'ecosystem-dao,bitcoin-dao',
+		VITE_DOA: 'bitcoin-dao',
 		VITE_DOA_PROPOSAL: 'SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.bdp001-sip-021-nakamoto',
 		VITE_DOA_PROPOSAL_VOTING_EXTENSION: 'bme007-snapshot-proposal-voting',
 		VITE_DOA_FUNDED_SUBMISSION_EXTENSION: 'bme008-flexible-funded-submission',

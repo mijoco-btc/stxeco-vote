@@ -108,14 +108,14 @@
 		</div>
 		<div class="flex justify-between">
 			<div class="w-1/2"><span class="text-4xl font-extrabold">Locked Stacks</span></div>
-			<div><span class="text-4xl font-extrabold">{lockedPercent} %</span></div>
+			<div><span class="text-4xl font-extrabold">{typeof lockedPercent === 'number' ? lockedPercent : 0} %</span></div>
 			<div>
 				{#if Number(lockedPercent) >= 70}<img alt="correct" src={tick} />{:else}<img alt="correct" src={cross} />{/if}
 			</div>
 		</div>
 		<div class="flex justify-between">
 			<div class="w-1/2"><span class="text-4xl font-extrabold">Unlocked Stacks</span></div>
-			<div><span class="text-4xl font-extrabold">{unlockedPercent} %</span></div>
+			<div><span class="text-4xl font-extrabold">{typeof unlockedPercent === 'number' ? unlockedPercent : 0} %</span></div>
 			<div>
 				{#if Number(unlockedPercent) >= 70}<img alt="correct" src={tick} />{:else}<img alt="correct" src={cross} />{/if}
 			</div>

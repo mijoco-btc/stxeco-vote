@@ -22,10 +22,13 @@
 	};
 
 	const getIntLink = () => {
-		if (prop.stackerData?.nodao) {
+		if (isVoting(prop)) {
+			return `/proposal/${prop.proposal}`;
+		} else if (prop.stackerData?.nodao) {
 			return `/proposal/results-v2/${prop.proposal}`;
+		} else {
+			return `/proposal/results-v1/${prop.proposal}`;
 		}
-		return `/proposal/results-v1/${prop.proposal}`;
 	};
 
 	const getSipLink = () => {
@@ -74,7 +77,7 @@
 			</div>
 		{/if}
 
-		<div class="flex flex-col justify-items-start gap-y-2">
+		<div class="flex flex-col justify-items-start gap-y-2 text-black">
 			{#if isProposedPreVoting(prop)}<div class="text-sm">
 					Starts: <Countdown scaleFactor={1} endBlock={prop.proposalData.burnStartHeight - currentBurnHeight} />
 				</div>
@@ -83,7 +86,7 @@
 					<div class="">
 						<button
 							on:click={() => {
-								goto('/dao/proposals/' + prop.proposal);
+								goto('/proposal/' + prop.proposal);
 							}}
 							class="focus-visible:outline-black-500/50 block w-auto space-y-3 rounded-md border border-none bg-[#131416] px-4 py-2 font-mono text-sm uppercase text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
 						>
