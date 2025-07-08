@@ -4,7 +4,6 @@
 	import { onMount, tick } from 'svelte';
 	import { Tabs, TabItem } from 'flowbite-svelte';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import type { PoxInfo } from '@mijoco/stx_helpers/dist/pox_types';
 	import { getAllProposals } from '$lib/components/proposals/proposals';
 	import BlockHeightConvertor from '$lib/components/dao/tools/BlockHeightConvertor.svelte';

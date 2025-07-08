@@ -24,7 +24,7 @@
 				power: vote.amount
 			});
 		}
-		csvMaker(csvVotes, 'nakamoto-dao-votes.csv');
+		csvMaker(csvVotes, 'sip-votes.csv');
 	};
 
 	const getAmount = (vote: VoteEvent): number => {

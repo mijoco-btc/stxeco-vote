@@ -48,7 +48,7 @@
 </script>
 
 <svelte:head>
-	<title>Ecosystem DAO - Nakamoto SIP Voting</title>
+	<title>Ecosystem DAO - Stacks SIP Voting</title>
 	<meta name="description" content="Governance of the Stacks Blockchain, Smart Contracts on Bitcoin" />
 </svelte:head>
 

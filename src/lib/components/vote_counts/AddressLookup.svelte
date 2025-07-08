@@ -60,7 +60,7 @@
 
 	const processStackingHistory = async () => {
 		if (!walletAddress) return;
-		votes = await getDaoVotesByVoter(walletAddress);
+		votes = []; // sip-31 await getDaoVotesByVoter(walletAddress);
 		if (walletAddress.startsWith('S')) {
 			stackerEventEntries = await findStackerEventsByEventAndAddress('stack-stx', walletAddress);
 		} else {

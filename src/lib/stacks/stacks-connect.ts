@@ -66,12 +66,12 @@ export function isLoggedIn() {
 
 export function getStxAddress() {
 	const userData = getLocalStorage();
-	return userData?.addresses.stx[0].address || '???';
+	return userData?.addresses.stx[0]?.address || '???';
 }
 
 export function getBtcAddress() {
 	const userData = getLocalStorage();
-	return userData?.addresses.btc[0].address || '???';
+	return userData?.addresses?.btc[0]?.address || '???';
 }
 
 export function getStxBalance() {
@@ -136,10 +136,23 @@ export const coordinators = [
 	{ stxAddress: 'SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z', btcAddress: '' }
 	// { stxAddress: 'ST3FM52ANQES92X27AP9ZV9Z676MHP7QP2J79RTH9', btcAddress: '' }
 ];
+export const voteTesters = [
+	{ stxAddress: 'SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z', btcAddress: '' },
+	{ stxAddress: 'SP167Z6WFHMV0FZKFCRNWZ33WTB0DFBCW9QRVJ627', btcAddress: '' },
+	{ stxAddress: 'SPVFPBKNRG1XVTB7F4ZZ673T33QEAACWV3NTAVHM', btcAddress: 'h' },
+	{ stxAddress: 'SP13J4B7B8A32QMW7E8KVZQHKDPRJ4AY1HNBKGKS8', btcAddress: 'm' },
+	{ stxAddress: 'SPSV8N0RCX2FXK0F832PMQ0BD89CGSRJVNJSRDM8', btcAddress: 'c' }
+];
 
 export function isCoordinator(address: string | undefined) {
 	if (!address || !isLoggedIn()) return false;
 	const index = coordinators.findIndex((o) => o.stxAddress === address);
+	return index > -1;
+}
+
+export function isVoteTester(address: string | undefined) {
+	if (!address || !isLoggedIn()) return false;
+	const index = voteTesters.findIndex((o) => o.stxAddress === address);
 	return index > -1;
 }
 
@@ -179,9 +192,9 @@ export async function addresses(): Promise<AddressObject> {
 	if (!isLoggedIn()) return {} as AddressObject;
 	const userData = await getUserData();
 	const result: AddressObject = {
-		stxAddress: userData?.addresses.stx[0].address || 'unknown',
-		cardinal: userData?.addresses.btc[0].address || 'unknown',
-		ordinal: userData?.addresses.btc[1].address || 'unknown',
+		stxAddress: userData?.addresses?.stx[0]?.address || 'unknown',
+		cardinal: userData?.addresses?.btc[0]?.address || 'unknown',
+		ordinal: userData?.addresses?.btc[1]?.address || 'unknown',
 		btcPubkeySegwit0: 'unknown',
 		btcPubkeySegwit1: 'unknown',
 		sBTCBalance: 0,

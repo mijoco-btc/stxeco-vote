@@ -24,6 +24,8 @@
 	const getIntLink = () => {
 		if (isVoting(prop)) {
 			return `/proposal/${prop.proposal}`;
+		} else if (isProposedPreVoting(prop)) {
+			return `/proposal/${prop.proposal}`;
 		} else if (prop.stackerData?.nodao) {
 			return `/proposal/results-v2/${prop.proposal}`;
 		} else {

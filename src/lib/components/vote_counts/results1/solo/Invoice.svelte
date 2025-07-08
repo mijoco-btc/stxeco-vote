@@ -65,7 +65,7 @@
 	const paymentUri = () => {
 		let uri = 'bitcoin:' + address;
 		uri += '?amount=' + fmtSatoshiToBitcoin(amount);
-		uri += '&label=' + encodeURI('Stacks Nakamoto vote');
+		uri += '&label=' + encodeURI('Stacks SIP Vote');
 		return uri;
 	};
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { VotingEventProposeProposal } from '@mijoco/stx_helpers/dist/index';
-	import { readStackerEvents, readVotingContractEvents } from '../voting-stacker';
+	import { readStackerEvents, readVotingContractEvents, reconcileStackerEvents } from '../voting-stacker';
 
 	export let proposal: VotingEventProposeProposal;
 	let message: string;
@@ -11,11 +11,16 @@
 		message = 'Reading voting events for contract: ' + proposal;
 	};
 
-	const syncDaoVotes = async () => {
-		if (!proposal.extension) return;
-		readVotingContractEvents(true, thisBaseDao, proposal.extension);
-		message = 'Reading voting events for contract: ' + proposal.extension;
+	const reconStackerVotes = async () => {
+		reconcileStackerEvents(proposal.proposal);
+		message = 'Reading voting events for contract: ' + proposal;
 	};
+
+	// const syncDaoVotes = async () => {
+	// 	if (!proposal.extension) return;
+	// 	readVotingContractEvents(true, thisBaseDao, proposal.extension);
+	// 	message = 'Reading voting events for contract: ' + proposal.extension;
+	// };
 </script>
 
 <div class="col-span-4">
@@ -26,6 +31,7 @@
 </div>
 <div class="col-span-1">
 	<!--<a class="pointer text-light" href="/" on:click|preventDefault={() => { openSesame() }}>Clarity</a>-->
-	<a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => syncDaoVotes()}>Non-Stackers</a>
-	<a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => syncStackerVotes()}>Stackers</a>
+	<!-- <a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => syncDaoVotes()}>Non-Stackers</a> -->
+	<a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => syncStackerVotes()}>Read Votes</a>
+	<a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => reconStackerVotes()}>Reconcile Votes</a>
 </div>

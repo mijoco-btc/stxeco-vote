@@ -10,11 +10,10 @@
 	import { concludeVote } from '$lib/components/vote_counts/voting_api';
 	import { getCurrentProposalLink, getProposalLatest, isConclusionPending, isPostVoting, isProposedPreVoting, isVoting } from '$lib/components/proposals/proposals';
 	import { fromMicroAmount } from '$lib/utils';
-	import { getStxAddress, isCoordinator } from '$lib/stacks/stacks-connect';
+	import { getStxAddress, isCoordinator, isVoteTester } from '$lib/stacks/stacks-connect';
 	import ProposalHeader from '$lib/components/proposals/ProposalHeader.svelte';
 	import SoloVotingActive from '$lib/components/vote_counts/results1/solo/SoloVotingActive.svelte';
 	import PoolVotingActive from '$lib/components/vote_counts/results1/pool/PoolVotingActive.svelte';
-	import DaoVotingActive from '$lib/components/vote_counts/results1/dao-voting/DaoVotingActive.svelte';
 	import Holding from '$lib/components/vote_counts/Holding.svelte';
 	import Placeholder from '$lib/components/ui/Placeholder.svelte';
 	import DaoConcluded from '$lib/components/vote_counts/results1/dao-voting/DaoConcluded.svelte';
@@ -72,9 +71,16 @@
 		<ProposalHeader {proposal} />
 
 		{#if isVoting(proposal)}
+			{#if isVoteTester(getStxAddress())}
+				<div class="mx-auto max-w-7xl justify-end bg-warning py-3 text-right md:px-3">
+					<a class="text-black" href={`/proposal/results-v2/${proposal?.proposal}`}>View early results</a>
+				</div>
+			{/if}
 			{#if method === 1}
 				<SoloVotingActive {proposal} {switchVotingMethod} />
-			{:else if method === 2}
+			{:else}
+				<PoolVotingActive {proposal} {totalBalanceAtHeight} {lockedBalanceAtHeight} {switchVotingMethod} />
+				<!-- {:else if method === 2}
 				<PoolVotingActive {proposal} {totalBalanceAtHeight} {lockedBalanceAtHeight} {switchVotingMethod} />
 			{:else if method === 3}
 				{#if $sessionStore.stacksInfo?.burn_block_height >= proposal.proposalData.burnStartHeight}
@@ -89,7 +95,7 @@
 			{:else}
 				<div class="flex flex-col gap-y-6 rounded-md border border-gray-900 bg-white/5 p-4">
 					<Skeleton size="md" />
-				</div>
+				</div> -->
 			{/if}
 		{:else if isProposedPreVoting(proposal)}
 			<Holding />

@@ -19,8 +19,8 @@ export async function getBitcoinAddressSatsConnect() {
 			console.log(response);
 			const obj = response.addresses;
 			return {
-				cardinal: obj.find((o: any) => o.purpose === 'payment').address,
-				ordinal: obj.find((o: any) => o.purpose === 'ordinals').address,
+				cardinal: obj.find((o: any) => o.purpose === 'payment')?.address || '',
+				ordinal: obj.find((o: any) => o.purpose === 'ordinals')?.address || '',
 				btcPubkeySegwit0: obj.find((o: any) => o.purpose === 'payment').publicKey,
 				btcPubkeySegwit1: obj.find((o: any) => o.purpose === 'ordinals').publicKey,
 				sBTCBalance: 0,

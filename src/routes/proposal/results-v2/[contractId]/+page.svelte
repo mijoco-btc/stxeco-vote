@@ -17,6 +17,7 @@
 	import Placeholder from '$lib/components/ui/Placeholder.svelte';
 	import { page } from '$app/state';
 	import { getStxAddress } from '$lib/stacks/stacks-connect';
+	import Holding from '$lib/components/vote_counts/Holding.svelte';
 
 	let proposal: VotingEventProposeProposal | undefined;
 
@@ -113,7 +114,7 @@
 				<!-- {/if} -->
 			</div>
 		{:else}
-			<HoldingResults />
+			<Holding />
 		{/if}
 	{:else if !proposal}
 		<Placeholder message={'Proposal could not be loaded'} link={getProposalNotFoundLink()} />

@@ -20,6 +20,7 @@
 	import DaoResults from '$lib/components/vote_counts/results1/dao-voting/DaoResults.svelte';
 	import HoldingResults from '$lib/components/vote_counts/HoldingResults.svelte';
 	import { getStxAddress } from '$lib/stacks/stacks-connect';
+	import Holding from '$lib/components/vote_counts/Holding.svelte';
 
 	let proposal: VotingEventProposeProposal | undefined;
 
@@ -210,7 +211,7 @@
 				</Tabs>
 			</div>
 		{:else}
-			<HoldingResults />
+			<Holding />
 		{/if}
 	{:else if !proposal}
 		<Placeholder message={'Proposal could not be loaded'} link={getProposalNotFoundLink()} />

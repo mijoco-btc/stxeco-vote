@@ -7,24 +7,24 @@ import { getTentativeProposals } from '$lib/components/proposals/proposals';
 import { getConcludedProposals } from '$lib/components/proposals/proposals';
 
 export const load: PageServerLoad = async ({ url }) => {
-	const network = getNetworkFromUrl(url);
-	const appConfig = config[network];
+	//const network = getNetworkFromUrl(url);
+	//const appConfig = config[network];
 
 	const key = 'home-page';
 	const cached = getCached(key);
 	if (cached) {
-		//console.log('CACHE HIT: fetching markets: ', cached);
+		console.log('CACHE HIT: ' + key);
 		return cached;
 	}
 
 	const proposals: Array<VotingEventProposeProposal> = await getActiveProposals();
-	const tentativeProposals = await getTentativeProposals();
-	const inactiveProposals = await getConcludedProposals();
+	//const tentativeProposals = await getTentativeProposals();
+	//const inactiveProposals = await getConcludedProposals();
 
-	//console.log('CACHE MISS: fetching markets: ', markets);
+	console.log('CACHE MISS: ' + key);
 	//console.log('CACHE MISS: fetching leaderboard: ', leaderBoard);
 
-	const result = { proposals, tentativeProposals, inactiveProposals };
+	const result = { proposals, tentativeProposals: [], inactiveProposals: [] };
 	setCached(key, result, 1000 * 60 * 10); // 10 mins
 	return result;
 };
