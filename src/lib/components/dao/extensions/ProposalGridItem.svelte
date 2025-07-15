@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { VotingEventProposeProposal } from '@mijoco/stx_helpers/dist/index';
-	import { readStackerEvents, readVotingContractEvents, reconcileStackerEvents } from '../voting-stacker';
+	import { readStackerEvents, readVotingContractEvents, reconcileNonces, reconcileStackerEvents } from '../voting-stacker';
 
 	export let proposal: VotingEventProposeProposal;
 	let message: string;
@@ -13,6 +13,11 @@
 
 	const reconStackerVotes = async () => {
 		reconcileStackerEvents(proposal.proposal);
+		message = 'Reading voting events for contract: ' + proposal;
+	};
+
+	const reconNonces = async () => {
+		reconcileNonces(proposal.proposal);
 		message = 'Reading voting events for contract: ' + proposal;
 	};
 
@@ -33,5 +38,6 @@
 	<!--<a class="pointer text-light" href="/" on:click|preventDefault={() => { openSesame() }}>Clarity</a>-->
 	<!-- <a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => syncDaoVotes()}>Non-Stackers</a> -->
 	<a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => syncStackerVotes()}>Read Votes</a>
+	<a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => reconNonces()}>Reconcile Nonces</a>
 	<a class="pointer text-light ms-3 border-s ps-3" href="/" on:click|preventDefault={() => reconStackerVotes()}>Reconcile Votes</a>
 </div>

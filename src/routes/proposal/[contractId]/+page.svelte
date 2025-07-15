@@ -105,7 +105,7 @@
 						<a href="/" class="text-bloodorange" on:click|preventDefault={() => conclude()}>Voting closed - please conclude</a>
 					</div>
 				{:else}
-					Voting has ended. Results will be published soon.
+					Voting has ended, thank you for participating!
 				{/if}
 			</div>
 		{:else}

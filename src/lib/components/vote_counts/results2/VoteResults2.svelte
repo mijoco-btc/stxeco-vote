@@ -66,7 +66,7 @@
 	onMount(async () => {
 		includeZeros = true; // double negative here!
 		votes = bitcoinVotes.concat(stacksVotes);
-		if (proposal) inited = true;
+		if (proposal) inited = false;
 	});
 
 	$: sortedEvents = votes.sort(dynamicSort(sortDir + sortField));

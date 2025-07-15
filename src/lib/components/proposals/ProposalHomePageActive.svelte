@@ -27,7 +27,7 @@
 		} else if (isProposedPreVoting(prop)) {
 			return `/proposal/${prop.proposal}`;
 		} else if (prop.stackerData?.nodao) {
-			return `/proposal/results-v2/${prop.proposal}`;
+			return `/`; // `/proposal/results-v2/${prop.proposal}`;
 		} else {
 			return `/proposal/results-v1/${prop.proposal}`;
 		}
@@ -104,7 +104,19 @@
 						<a href="/" class="text-bloodorange" on:click|preventDefault={() => conclude()}>Voting closed - please conclude</a>
 					</div>
 				{:else}
-					Voting has ended. Results will be published soon.
+					Voting has ended, thank you for participating!
+					<!-- <div class="flex w-full justify-start gap-x-5">
+						<div class="">
+							<button
+								on:click={() => {
+									goto('/proposal/results-v2/' + prop.proposal);
+								}}
+								class="focus-visible:outline-black-500/50 block w-auto space-y-3 rounded-md border border-none bg-[#131416] px-4 py-2 font-mono text-sm uppercase text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+							>
+								Results
+							</button>
+						</div>
+					</div> -->
 				{/if}
 			{/if}
 		</div>
